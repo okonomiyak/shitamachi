@@ -1,13 +1,17 @@
 {
   "multipart": [
-    {"apply": {"model": "shitamachi:block/denpole"}},
-    {"when": {"has_arm": "true", "facing": "north"}, "apply": {"model": "shitamachi:block/denpole_cross_arm", "y": 0}},
-    {"when": {"has_arm": "true", "facing": "east"},  "apply": {"model": "shitamachi:block/denpole_cross_arm", "y": 90}},
-    {"when": {"has_arm": "true", "facing": "south"}, "apply": {"model": "shitamachi:block/denpole_cross_arm", "y": 180}},
-    {"when": {"has_arm": "true", "facing": "west"},  "apply": {"model": "shitamachi:block/denpole_cross_arm", "y": 270}},
-    {"when": {"has_warning": "true", "facing": "north"}, "apply": {"model": "shitamachi:block/denpole_warning", "y": 0}},
-    {"when": {"has_warning": "true", "facing": "east"},  "apply": {"model": "shitamachi:block/denpole_warning", "y": 90}},
-    {"when": {"has_warning": "true", "facing": "south"}, "apply": {"model": "shitamachi:block/denpole_warning", "y": 180}},
-    {"when": {"has_warning": "true", "facing": "west"},  "apply": {"model": "shitamachi:block/denpole_warning", "y": 270}}
+    { "apply": { "model": "shitamachi:block/denpole" } },
+    {
+      "when": { "OR": [ { "arm_north": "true" }, { "arm_south": "true" } ] },
+      "apply": { "model": "shitamachi:block/denpole_cross_arm", "y": 0 }
+    },
+    {
+      "when": { "OR": [ { "arm_east": "true" }, { "arm_west": "true" } ] },
+      "apply": { "model": "shitamachi:block/denpole_cross_arm", "y": 90 }
+    },
+    { "when": { "has_warning": "true", "facing": "north" }, "apply": { "model": "shitamachi:block/denpole_warning", "y": 0   } },
+    { "when": { "has_warning": "true", "facing": "east"  }, "apply": { "model": "shitamachi:block/denpole_warning", "y": 90  } },
+    { "when": { "has_warning": "true", "facing": "south" }, "apply": { "model": "shitamachi:block/denpole_warning", "y": 180 } },
+    { "when": { "has_warning": "true", "facing": "west"  }, "apply": { "model": "shitamachi:block/denpole_warning", "y": 270 } }
   ]
 }

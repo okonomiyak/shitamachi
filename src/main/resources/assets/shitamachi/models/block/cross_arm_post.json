@@ -1,0 +1,47 @@
+{
+	"textures": {
+		"2": "shitamachi:block/cross_arm",
+		"particle": "shitamachi:block/cross_arm"
+	},
+	"elements": [
+		{
+			"name": "post_main",
+			"from": [6.80653, 7, 6.80653],
+			"to": [9.19347, 9, 9.19347],
+			"faces": {
+				"north": {"uv": [8, 8, 10, 10], "texture": "#2"},
+				"east":  {"uv": [8, 8, 10, 10], "texture": "#2"},
+				"south": {"uv": [8, 8, 10, 10], "texture": "#2"},
+				"west":  {"uv": [8, 8, 10, 10], "texture": "#2"},
+				"up":    {"uv": [8, 8, 10, 10], "texture": "#2"},
+				"down":  {"uv": [8, 8, 10, 10], "texture": "#2"}
+			}
+		},
+		{
+			"name": "post_top_flange",
+			"from": [5.80653, 9, 5.80653],
+			"to": [10.19347, 10, 10.19347],
+			"faces": {
+				"north": {"uv": [7, 9, 11.38694, 10], "texture": "#2"},
+				"east":  {"uv": [7, 9, 11.38694, 10], "texture": "#2"},
+				"south": {"uv": [7, 9, 11.38694, 10], "texture": "#2"},
+				"west":  {"uv": [7, 9, 11.38694, 10], "texture": "#2"},
+				"up":    {"uv": [7, 7, 11.38694, 11.38694], "texture": "#2"},
+				"down":  {"uv": [7, 7, 11.38694, 11.38694], "texture": "#2"}
+			}
+		},
+		{
+			"name": "post_bottom_flange",
+			"from": [5.80653, 6, 5.80653],
+			"to": [10.19347, 7, 10.19347],
+			"faces": {
+				"north": {"uv": [7, 9, 11.38694, 10], "texture": "#2"},
+				"east":  {"uv": [7, 9, 11.38694, 10], "texture": "#2"},
+				"south": {"uv": [7, 9, 11.38694, 10], "texture": "#2"},
+				"west":  {"uv": [7, 9, 11.38694, 10], "texture": "#2"},
+				"up":    {"uv": [7, 7, 11.38694, 11.38694], "texture": "#2"},
+				"down":  {"uv": [7, 7, 11.38694, 11.38694], "texture": "#2"}
+			}
+		}
+	]
+}

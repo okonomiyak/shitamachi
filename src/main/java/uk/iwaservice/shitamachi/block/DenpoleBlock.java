@@ -36,7 +36,10 @@ import java.util.List;
 public class DenpoleBlock extends BaseEntityBlock {
     private static final VoxelShape SHAPE = box(6, 0, 6, 10, 16, 10);
 
-    public static final BooleanProperty HAS_ARM     = BooleanProperty.create("has_arm");
+    public static final BooleanProperty ARM_NORTH  = BooleanProperty.create("arm_north");
+    public static final BooleanProperty ARM_SOUTH  = BooleanProperty.create("arm_south");
+    public static final BooleanProperty ARM_EAST   = BooleanProperty.create("arm_east");
+    public static final BooleanProperty ARM_WEST   = BooleanProperty.create("arm_west");
     public static final BooleanProperty HAS_WARNING = BooleanProperty.create("has_warning");
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
@@ -46,14 +49,17 @@ public class DenpoleBlock extends BaseEntityBlock {
     public DenpoleBlock(BlockBehaviour.Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any()
-                .setValue(HAS_ARM, false)
+                .setValue(ARM_NORTH,   false)
+                .setValue(ARM_SOUTH,   false)
+                .setValue(ARM_EAST,    false)
+                .setValue(ARM_WEST,    false)
                 .setValue(HAS_WARNING, false)
                 .setValue(FACING, Direction.NORTH));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(HAS_ARM, HAS_WARNING, FACING);
+        builder.add(ARM_NORTH, ARM_SOUTH, ARM_EAST, ARM_WEST, HAS_WARNING, FACING);
     }
 
     @Override
@@ -61,27 +67,20 @@ public class DenpoleBlock extends BaseEntityBlock {
                                    LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
         if (direction.getAxis() == Direction.Axis.Y) return state;
 
-        // 腕金検出
-        if (neighborState.is(DENPOLE_ARMS)) {
-            return state.setValue(HAS_ARM, true).setValue(FACING, direction);
-        }
-        boolean armFound = false;
-        for (Direction dir : Direction.Plane.HORIZONTAL) {
-            if (dir == direction) continue;
-            if (level.getBlockState(pos.relative(dir)).is(DENPOLE_ARMS)) {
-                state = state.setValue(HAS_ARM, true).setValue(FACING, dir);
-                armFound = true;
-                break;
-            }
-        }
-        if (!armFound) state = state.setValue(HAS_ARM, false);
-        return state;
+        boolean isArm = neighborState.is(DENPOLE_ARMS);
+        return switch (direction) {
+            case NORTH -> state.setValue(ARM_NORTH, isArm);
+            case SOUTH -> state.setValue(ARM_SOUTH, isArm);
+            case EAST  -> state.setValue(ARM_EAST,  isArm);
+            case WEST  -> state.setValue(ARM_WEST,  isArm);
+            default    -> state;
+        };
     }
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos,
                                                 Player player, BlockHitResult hit) {
-        if (!player.isShiftKeyDown() || !state.getValue(HAS_ARM)) return InteractionResult.PASS;
+        if (!player.isShiftKeyDown() || !state.getValue(HAS_WARNING)) return InteractionResult.PASS;
 
         if (!level.isClientSide) {
             level.setBlock(pos, state.setValue(FACING, state.getValue(FACING).getClockWise()), 3);
