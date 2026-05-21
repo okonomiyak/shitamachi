@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": {"model": "shitamachi:block/cross_arm", "y": 0},
+    "facing=east":  {"model": "shitamachi:block/cross_arm", "y": 90},
+    "facing=south": {"model": "shitamachi:block/cross_arm", "y": 180},
+    "facing=west":  {"model": "shitamachi:block/cross_arm", "y": 270}
+  }
+}
