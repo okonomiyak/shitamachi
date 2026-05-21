@@ -118,8 +118,9 @@ public class DenpoleBlock extends BaseEntityBlock {
 
         if (!level.isClientSide) {
             if (level.getBlockEntity(pos) instanceof DenpoleBlockEntity be) {
-                List<BlockPos> connected = List.copyOf(be.getConnections());
-                connected.forEach(otherPos -> {
+                List<ConnectionData> connected = be.getConnections();
+                connected.forEach(conn -> {
+                    BlockPos otherPos = conn.pos();
                     be.removeConnection(otherPos);
                     if (level.getBlockEntity(otherPos) instanceof DenpoleBlockEntity otherBe) {
                         otherBe.removeConnection(pos);

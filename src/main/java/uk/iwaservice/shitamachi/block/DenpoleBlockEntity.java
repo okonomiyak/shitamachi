@@ -20,32 +20,32 @@ public class DenpoleBlockEntity extends BlockEntity {
     public static final int MAX_CONNECTIONS = 4;
     public static final int MAX_DISTANCE = 32;
 
-    private final List<BlockPos> connections = new ArrayList<>();
+    private final List<ConnectionData> connections = new ArrayList<>();
 
     public DenpoleBlockEntity(BlockPos pos, BlockState state) {
         super(Shitamachi.DENPOLE_BE.get(), pos, state);
     }
 
-    public List<BlockPos> getConnections() {
+    public List<ConnectionData> getConnections() {
         return List.copyOf(connections);
     }
 
     public boolean canConnect(BlockPos other) {
         return connections.size() < MAX_CONNECTIONS
-                && !connections.contains(other)
+                && connections.stream().noneMatch(c -> c.pos().equals(other))
                 && !other.equals(worldPosition)
                 && worldPosition.distSqr(other) <= (double) (MAX_DISTANCE * MAX_DISTANCE);
     }
 
-    public boolean addConnection(BlockPos other) {
+    public boolean addConnection(BlockPos other, float thickness, float sag) {
         if (!canConnect(other)) return false;
-        connections.add(other.immutable());
+        connections.add(new ConnectionData(other.immutable(), thickness, sag));
         setChanged();
         return true;
     }
 
     public boolean removeConnection(BlockPos other) {
-        boolean removed = connections.remove(other);
+        boolean removed = connections.removeIf(c -> c.pos().equals(other));
         if (removed) setChanged();
         return removed;
     }
@@ -54,11 +54,13 @@ public class DenpoleBlockEntity extends BlockEntity {
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         ListTag list = new ListTag();
-        for (BlockPos pos : connections) {
+        for (ConnectionData conn : connections) {
             CompoundTag entry = new CompoundTag();
-            entry.putInt("x", pos.getX());
-            entry.putInt("y", pos.getY());
-            entry.putInt("z", pos.getZ());
+            entry.putInt("x", conn.pos().getX());
+            entry.putInt("y", conn.pos().getY());
+            entry.putInt("z", conn.pos().getZ());
+            entry.putFloat("thickness", conn.thickness());
+            entry.putFloat("sag", conn.sag());
             list.add(entry);
         }
         tag.put("connections", list);
@@ -71,7 +73,10 @@ public class DenpoleBlockEntity extends BlockEntity {
         ListTag list = tag.getList("connections", Tag.TAG_COMPOUND);
         for (int i = 0; i < list.size(); i++) {
             CompoundTag entry = list.getCompound(i);
-            connections.add(new BlockPos(entry.getInt("x"), entry.getInt("y"), entry.getInt("z")));
+            BlockPos pos = new BlockPos(entry.getInt("x"), entry.getInt("y"), entry.getInt("z"));
+            float thickness = entry.contains("thickness") ? entry.getFloat("thickness") : ConnectionData.DEFAULT_THICKNESS;
+            float sag = entry.contains("sag") ? entry.getFloat("sag") : ConnectionData.DEFAULT_SAG;
+            connections.add(new ConnectionData(pos, thickness, sag));
         }
     }
 

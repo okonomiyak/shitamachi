@@ -6,17 +6,17 @@
       "request": "launch",
       "name": "Client",
       "presentation": {
-        "group": "Mod Development - shitamachi-master",
+        "group": "Mod Development - shitamachi",
         "order": 0
       },
-      "projectName": "shitamachi-master",
+      "projectName": "shitamachi",
       "mainClass": "net.neoforged.devlaunch.Main",
       "args": [
-        "@C:\\Users\\tomip\\program\\java\\shitamachi-master\\build\\moddev\\clientRunProgramArgs.txt"
+        "@C:\\Users\\tomip\\program\\java\\shitamachi\\build\\moddev\\clientRunProgramArgs.txt"
       ],
       "vmArgs": [
-        "@C:\\Users\\tomip\\program\\java\\shitamachi-master\\build\\moddev\\clientRunVmArgs.txt",
-        "-Dfml.modFolders\u003dshitamachi%%C:\\Users\\tomip\\program\\java\\shitamachi-master\\bin\\main"
+        "@C:\\Users\\tomip\\program\\java\\shitamachi\\build\\moddev\\clientRunVmArgs.txt",
+        "-Dfml.modFolders\u003dshitamachi%%C:\\Users\\tomip\\program\\java\\shitamachi\\bin\\main"
       ],
       "cwd": "${workspaceFolder}\\run",
       "env": {},
@@ -28,17 +28,17 @@
       "request": "launch",
       "name": "Data",
       "presentation": {
-        "group": "Mod Development - shitamachi-master",
+        "group": "Mod Development - shitamachi",
         "order": 1
       },
-      "projectName": "shitamachi-master",
+      "projectName": "shitamachi",
       "mainClass": "net.neoforged.devlaunch.Main",
       "args": [
-        "@C:\\Users\\tomip\\program\\java\\shitamachi-master\\build\\moddev\\dataRunProgramArgs.txt"
+        "@C:\\Users\\tomip\\program\\java\\shitamachi\\build\\moddev\\dataRunProgramArgs.txt"
       ],
       "vmArgs": [
-        "@C:\\Users\\tomip\\program\\java\\shitamachi-master\\build\\moddev\\dataRunVmArgs.txt",
-        "-Dfml.modFolders\u003dshitamachi%%C:\\Users\\tomip\\program\\java\\shitamachi-master\\bin\\main"
+        "@C:\\Users\\tomip\\program\\java\\shitamachi\\build\\moddev\\dataRunVmArgs.txt",
+        "-Dfml.modFolders\u003dshitamachi%%C:\\Users\\tomip\\program\\java\\shitamachi\\bin\\main"
       ],
       "cwd": "${workspaceFolder}\\run",
       "env": {},
@@ -50,17 +50,17 @@
       "request": "launch",
       "name": "GameTestServer",
       "presentation": {
-        "group": "Mod Development - shitamachi-master",
+        "group": "Mod Development - shitamachi",
         "order": 2
       },
-      "projectName": "shitamachi-master",
+      "projectName": "shitamachi",
       "mainClass": "net.neoforged.devlaunch.Main",
       "args": [
-        "@C:\\Users\\tomip\\program\\java\\shitamachi-master\\build\\moddev\\gameTestServerRunProgramArgs.txt"
+        "@C:\\Users\\tomip\\program\\java\\shitamachi\\build\\moddev\\gameTestServerRunProgramArgs.txt"
       ],
       "vmArgs": [
-        "@C:\\Users\\tomip\\program\\java\\shitamachi-master\\build\\moddev\\gameTestServerRunVmArgs.txt",
-        "-Dfml.modFolders\u003dshitamachi%%C:\\Users\\tomip\\program\\java\\shitamachi-master\\bin\\main"
+        "@C:\\Users\\tomip\\program\\java\\shitamachi\\build\\moddev\\gameTestServerRunVmArgs.txt",
+        "-Dfml.modFolders\u003dshitamachi%%C:\\Users\\tomip\\program\\java\\shitamachi\\bin\\main"
       ],
       "cwd": "${workspaceFolder}\\run",
       "env": {},
@@ -72,17 +72,17 @@
       "request": "launch",
       "name": "Server",
       "presentation": {
-        "group": "Mod Development - shitamachi-master",
+        "group": "Mod Development - shitamachi",
         "order": 3
       },
-      "projectName": "shitamachi-master",
+      "projectName": "shitamachi",
       "mainClass": "net.neoforged.devlaunch.Main",
       "args": [
-        "@C:\\Users\\tomip\\program\\java\\shitamachi-master\\build\\moddev\\serverRunProgramArgs.txt"
+        "@C:\\Users\\tomip\\program\\java\\shitamachi\\build\\moddev\\serverRunProgramArgs.txt"
       ],
       "vmArgs": [
-        "@C:\\Users\\tomip\\program\\java\\shitamachi-master\\build\\moddev\\serverRunVmArgs.txt",
-        "-Dfml.modFolders\u003dshitamachi%%C:\\Users\\tomip\\program\\java\\shitamachi-master\\bin\\main"
+        "@C:\\Users\\tomip\\program\\java\\shitamachi\\build\\moddev\\serverRunVmArgs.txt",
+        "-Dfml.modFolders\u003dshitamachi%%C:\\Users\\tomip\\program\\java\\shitamachi\\bin\\main"
       ],
       "cwd": "${workspaceFolder}\\run",
       "env": {},

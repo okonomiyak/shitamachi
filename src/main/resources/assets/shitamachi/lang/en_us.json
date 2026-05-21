@@ -1,9 +1,10 @@
 {
   "itemGroup.shitamachi": "Example Mod Tab",
-  "block.shitamachi.example_block": "Example Block",
-  "item.shitamachi.example_item": "Example Item",
-  "block.shitamachi.denpole": "Utility Pole",
+"block.shitamachi.denpole": "Utility Pole",
   "block.shitamachi.cross_arm": "Cross Arm",
   "block.shitamachi.warning_cover": "Warning Cover",
-  "item.shitamachi.cable": "Cable"
+  "item.shitamachi.cable": "Cable",
+  "screen.shitamachi.cable_config": "Cable Settings",
+  "screen.shitamachi.cable_thickness": "Thickness: %s",
+  "screen.shitamachi.cable_sag": "Sag: %s"
 }
