@@ -4,6 +4,7 @@
   "block.shitamachi.cross_arm": "Cross Arm",
   "block.shitamachi.warning_cover": "Warning Cover",
   "item.shitamachi.cable": "Cable",
+  "item.shitamachi.insulator": "Insulator",
   "screen.shitamachi.cable_config": "Cable Settings",
   "screen.shitamachi.cable_thickness": "Thickness: %s",
   "screen.shitamachi.cable_sag": "Sag: %s"

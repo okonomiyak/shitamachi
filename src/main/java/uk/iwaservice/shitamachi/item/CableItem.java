@@ -12,15 +12,17 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import uk.iwaservice.shitamachi.block.CableBlockEntity;
 import uk.iwaservice.shitamachi.block.ConnectionData;
+import uk.iwaservice.shitamachi.block.CrossArmBlock;
 import uk.iwaservice.shitamachi.block.DenpoleBlock;
-import uk.iwaservice.shitamachi.block.DenpoleBlockEntity;
 import uk.iwaservice.shitamachi.client.CableConfigScreen;
 
 public class CableItem extends Item {
-    private static final String KEY_FROM = "denpole_from";
+    private static final String KEY_FROM = "cable_from";
 
     public CableItem(Properties properties) {
         super(properties);
@@ -40,6 +42,10 @@ public class CableItem extends Item {
         net.minecraft.client.Minecraft.getInstance().setScreen(new CableConfigScreen(stack));
     }
 
+    private static boolean isCableBlock(Block block) {
+        return block instanceof DenpoleBlock || block instanceof CrossArmBlock;
+    }
+
     @Override
     public InteractionResult useOn(UseOnContext context) {
         Level level = context.getLevel();
@@ -47,7 +53,7 @@ public class CableItem extends Item {
         Player player = context.getPlayer();
 
         if (player == null) return InteractionResult.PASS;
-        if (!(level.getBlockState(pos).getBlock() instanceof DenpoleBlock)) return InteractionResult.PASS;
+        if (!isCableBlock(level.getBlockState(pos).getBlock())) return InteractionResult.PASS;
 
         if (level.isClientSide) return InteractionResult.SUCCESS;
 
@@ -59,7 +65,7 @@ public class CableItem extends Item {
             posTag.putInt("y", pos.getY());
             posTag.putInt("z", pos.getZ());
             playerData.put(KEY_FROM, posTag);
-            player.sendSystemMessage(Component.literal("接続元の電柱を選択しました。次の電柱をクリックしてください。"));
+            player.sendSystemMessage(Component.literal("接続元を選択しました。次をクリックしてください。"));
             return InteractionResult.SUCCESS;
         }
 
@@ -73,13 +79,13 @@ public class CableItem extends Item {
             return InteractionResult.SUCCESS;
         }
 
-        if (!(level.getBlockState(fromPos).getBlock() instanceof DenpoleBlock)) {
-            player.sendSystemMessage(Component.literal("接続元の電柱が見つかりません。"));
+        if (!isCableBlock(level.getBlockState(fromPos).getBlock())) {
+            player.sendSystemMessage(Component.literal("接続元のブロックが見つかりません。"));
             return InteractionResult.SUCCESS;
         }
 
-        if (!(level.getBlockEntity(fromPos) instanceof DenpoleBlockEntity fromBE)
-                || !(level.getBlockEntity(pos) instanceof DenpoleBlockEntity toBE)) {
+        if (!(level.getBlockEntity(fromPos) instanceof CableBlockEntity fromBE)
+                || !(level.getBlockEntity(pos) instanceof CableBlockEntity toBE)) {
             player.sendSystemMessage(Component.literal("エラーが発生しました。"));
             return InteractionResult.SUCCESS;
         }
@@ -89,7 +95,6 @@ public class CableItem extends Item {
             return InteractionResult.SUCCESS;
         }
 
-        // アイテムのNBTから太さと張りを読む
         ItemStack stack = context.getItemInHand();
         float thickness = ConnectionData.DEFAULT_THICKNESS;
         float sag       = ConnectionData.DEFAULT_SAG;
@@ -104,7 +109,7 @@ public class CableItem extends Item {
             toBE.addConnection(fromPos, thickness, sag);
             level.sendBlockUpdated(fromPos, level.getBlockState(fromPos), level.getBlockState(fromPos), 3);
             level.sendBlockUpdated(pos, level.getBlockState(pos), level.getBlockState(pos), 3);
-            player.sendSystemMessage(Component.literal("電柱を接続しました！"));
+            player.sendSystemMessage(Component.literal("接続しました！"));
             if (!player.isCreative()) {
                 stack.shrink(1);
             }

@@ -35,10 +35,12 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.slf4j.Logger;
 import uk.iwaservice.shitamachi.block.CrossArmBlock;
+import uk.iwaservice.shitamachi.block.CrossArmBlockEntity;
 import uk.iwaservice.shitamachi.block.DenpoleBlock;
 import uk.iwaservice.shitamachi.block.DenpoleBlockEntity;
 import uk.iwaservice.shitamachi.block.DenpoleBlockEntityRenderer;
 import uk.iwaservice.shitamachi.item.CableItem;
+import uk.iwaservice.shitamachi.item.InsulatorItem;
 import uk.iwaservice.shitamachi.item.WarningCoverItem;
 import uk.iwaservice.shitamachi.network.ServerboundSetCableConfigPacket;
 
@@ -72,11 +74,18 @@ public class Shitamachi {
                     .noOcclusion()));
     public static final DeferredItem<BlockItem> CROSS_ARM_ITEM = ITEMS.registerSimpleBlockItem("cross_arm", CROSS_ARM);
 
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<CrossArmBlockEntity>> CROSS_ARM_BE =
+            BLOCK_ENTITY_TYPES.register("cross_arm", () ->
+                    BlockEntityType.Builder.of(CrossArmBlockEntity::new, CROSS_ARM.get()).build(null));
+
     public static final DeferredItem<WarningCoverItem> WARNING_COVER_ITEM = ITEMS.register("warning_cover",
             () -> new WarningCoverItem(new Item.Properties().stacksTo(16)));
 
     public static final DeferredItem<CableItem> CABLE_ITEM = ITEMS.register("cable",
             () -> new CableItem(new Item.Properties().stacksTo(16)));
+
+    public static final DeferredItem<InsulatorItem> INSULATOR_ITEM = ITEMS.register("insulator",
+            () -> new InsulatorItem(new Item.Properties().stacksTo(64)));
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("example_tab", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.shitamachi"))
@@ -87,6 +96,7 @@ public class Shitamachi {
                 output.accept(CROSS_ARM_ITEM.get());
                 output.accept(WARNING_COVER_ITEM.get());
                 output.accept(CABLE_ITEM.get());
+                output.accept(INSULATOR_ITEM.get());
             })
             .build());
 
@@ -140,6 +150,7 @@ public class Shitamachi {
             LOGGER.info("HELLO FROM CLIENT SETUP");
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
             BlockEntityRenderers.register(Shitamachi.DENPOLE_BE.get(), DenpoleBlockEntityRenderer::new);
+            BlockEntityRenderers.register(Shitamachi.CROSS_ARM_BE.get(), DenpoleBlockEntityRenderer::new);
         }
     }
 }

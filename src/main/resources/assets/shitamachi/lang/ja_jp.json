@@ -4,6 +4,7 @@
   "block.shitamachi.cross_arm": "腕金",
   "block.shitamachi.warning_cover": "警告カバー",
   "item.shitamachi.cable": "ケーブル",
+  "item.shitamachi.insulator": "絶縁碍子",
   "screen.shitamachi.cable_config": "ケーブル設定",
   "screen.shitamachi.cable_thickness": "太さ: %s",
   "screen.shitamachi.cable_sag": "張り: %s"

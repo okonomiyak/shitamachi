@@ -116,18 +116,19 @@ public class DenpoleBlock extends BaseEntityBlock {
         if (!stack.is(Items.SHEARS)) return super.useItemOn(stack, state, level, pos, player, hand, hit);
 
         if (!level.isClientSide) {
-            if (level.getBlockEntity(pos) instanceof DenpoleBlockEntity be) {
+            if (level.getBlockEntity(pos) instanceof CableBlockEntity be) {
                 List<ConnectionData> connected = be.getConnections();
-                connected.forEach(conn -> {
-                    BlockPos otherPos = conn.pos();
+                if (!connected.isEmpty()) {
+                    BlockPos otherPos = connected.get(0).pos();
                     be.removeConnection(otherPos);
-                    if (level.getBlockEntity(otherPos) instanceof DenpoleBlockEntity otherBe) {
+                    if (level.getBlockEntity(otherPos) instanceof CableBlockEntity otherBe) {
                         otherBe.removeConnection(pos);
                         level.sendBlockUpdated(otherPos, level.getBlockState(otherPos), level.getBlockState(otherPos), 3);
                     }
-                });
-                level.sendBlockUpdated(pos, state, state, 3);
-                player.sendSystemMessage(Component.literal("ケーブルをすべて切断しました。"));
+                    level.sendBlockUpdated(pos, state, state, 3);
+                    int remaining = be.getConnections().size();
+                    player.sendSystemMessage(Component.literal("ケーブルを切断しました。" + (remaining > 0 ? "残り" + remaining + "本" : "")));
+                }
             }
         }
         return ItemInteractionResult.sidedSuccess(level.isClientSide);
